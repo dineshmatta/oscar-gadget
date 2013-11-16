@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<Module>
+  <ModulePrefs title="hello world example" height="100">
+      <!-- The next feature, google.contentmatch, is required for all
+         Gmail contextual gadgets.
+         <Param> - specify one or more comma-separated extractor IDs in
+         a param named "extractors". This line is overridden by the extractor ID
+         in the manifest, but is still expected to be present. -->
+      <Require feature="google.contentmatch">
+          <Param name="extractors">
+              google.com:HelloWorld
+          </Param>
+      </Require>
+  </ModulePrefs>
+  <Content type="html" view="card">
+     <![CDATA[ 
+       Hello, world sdklvsdv!
+     ]]>
+  </Content> 
+</Module>

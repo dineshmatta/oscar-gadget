@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenCOBData id="OscarFromExtractor">
+    <AuthorInfo description="Extracts from address from emails." author="Alan Hickey" />
+    <ExtractorSpec platform="gmail" language="en">
+        <Search>
+            <Pattern input_fields="from_email">
+                <![CDATA[(?P<test>(?M=SupervisionAddressType))]]>
+            </Pattern>
+        </Search>
+        <Response platform="gmail" format="cardgadget">
+            <Output name="test_id">{@test}</Output>
+            <Output name="message_id">{@__MESSAGE_ID__}</Output>
+        </Response>
+    </ExtractorSpec>
+
+    <DataObject id="SupervisionAddresses" type="SupervisionAddressType">
+        <QueryName value="ecstringer83@gmail.com"/>
+    </DataObject>
+
+</OpenCOBData>

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+    <ModulePrefs title="OSCAR filer"
+                 description="Files messages to jobs"
+                 author="Alan Hickey"
+                 height="150"
+                 author_email="alan.hickey@ahkgroup.com">
+
+        <!-- Declare feature dependencies. -->
+
+        <!-- This one is not specific to Gmail contextual gadgets. -->
+        <!--<Require feature="dynamic-height"/>-->
+
+        <!-- The next feature, Caja, is optional, and is supported for
+         use only within test domains. Uncomment the tag only for
+         non-production gadgets. -->
+        <!-- <Require feature="caja"/> -->
+
+        <Require feature="locked-domain"/>
+        <OAuth>
+            <Service name="google">
+                <Access url="https://www.google.com/accounts/OAuthGetAccessToken" method="GET" />
+                <Request url="https://www.google.com/accounts/OAuthGetRequestToken?scope=http://www.google.com/m8/feeds/" method="GET" />
+                <Authorization url="https://www.google.com/accounts/OAuthAuthorizeToken?oauth_callback=http://oauth.gmodules.com/gadgets/oauthcallback" />
+            </Service>
+        </OAuth>
+
+        <!-- The next feature, google.contentmatch, is required for all
+         Gmail contextual gadgets.
+         <Param> - specify one or more comma-separated extractor IDs in
+         a param named "extractors". This line is overridden by the extractor ID
+         in the manifest, but is still expected to be present. -->
+        <Require feature="google.contentmatch">
+            <Param name="extractors">
+                1022840257384:OscarFromExtractor
+            </Param>
+        </Require>
+
+    </ModulePrefs>
+
+    <!-- Define the content type and display location. The settings "html" and "card" are required for all Gmail contextual gadgets. -->
+    <Content type="html" view="card">
+        <![CDATA[
+        <head>
+            <title></title>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+            <script type="text/javascript" src="//oscar-contextual-gadget.googlecode.com/svn/trunk/oscar-filer.js"></script>
+            <style>
+                #main {
+                    padding: 10px;
+                    height: 50px;
+                    font-size: 12px;
+                }
+                .title {
+                    font-weight: bold;
+                    margin-bottom: 5px;
+                    height: 16px;
+                    vertical-align: middle;
+                }
+                label {
+                    width: 75px;
+                    padding-right: 5px;
+                    display: inline-block;
+                    font-weight: normal;
+                    text-align: right;
+                }
+                input,select {
+                    vertical-align: middle;
+                    margin-top: 2px;
+                    margin-bottom: 2px;
+                }
+                p {
+                    margin: 0;
+                    padding: 0;
+                }
+                #validationResponse {
+                    margin-top: 5px;
+                    color: blue;
+                }
+                #fileform, #filedetails {
+                    float:left;
+                    padding-right: 10px;
+                    height: 120px;
+                }
+                #fileform {
+                    border-top: 0;
+                    border-right: 1px solid LightGray;
+                    border-bottom: 0;
+                    border-left: 0;
+                }
+                #statusImg {
+                    height: 16px;
+                    visibility: hidden;
+                    vertical-align: top;
+                }
+                #jobnumbers {
+                    padding-left: 10px;
+                }
+                #siteCode {
+                    width: 20px;
+                    display: inline-block;
+                    font-weight: normal;
+                    text-align: left;
+                }
+            </style>
+        </head>
+        <body>
+            <div id="main" style="display: none">
+                <div id="fileform">
+                    <p>
+                        <label id="fileTitle" class="title">File Message</label>
+                    </p>
+                    <p>
+                        <label for="actionrequested">Action Type:</label>
+                        <select id="actionrequested">
+                            <option value="standard">Standard Action</option>
+                            <option value="urgent">Urgent Action</option>
+                            <option value="none">No Action</option>
+                        </select>
+                    </p>
+                    <p>
+                        <label for="filetype">File Type:</label>
+                        <select id="filetype">
+                            <option value="inbound">Inbound</option>
+                            <option value="outbound">Outbound</option>
+                        </select>
+                    </p>
+                    <p>
+                        <label for="siteCode">Site:</label>
+                        <label id="siteCode" />
+                    </p>
+                    <p>
+                        <label for="inputbox">Job No:</label>
+                        <INPUT TYPE="text" id="inputbox" NAME="inputbox" VALUE="">
+                        <INPUT TYPE="button" NAME="button" Value="File" onclick="validateEnteredJobNumber()">
+                    </p>
+                    <p id="validationResponse"></p>
+                </div>
+                <div id="filedetails">
+                    <div id="statusInfo">
+                        <label id="statusTitle" for="statusImg" class="title">Filed Status</label>
+                        <img id="statusImg">
+                    </div>
+                    <p id="jobnumbers">
+                </div>
+            </div>
+            <div id="approval" style="display: none">
+                <a href="#" id="personalize">Authenticate to use gadget</a>
+            </div>
+
+            <div id="waiting" style="display: none">
+                Please click <a href="#" id="approvaldone">I've approved access</a>once you've approved access to your data.
+            </div>
+        </body>
+        ]]>
+    </Content>
+</Module>

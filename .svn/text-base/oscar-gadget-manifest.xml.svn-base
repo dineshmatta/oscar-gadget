@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ApplicationManifest xmlns="http://schemas.google.com/ApplicationManifest/2009">
+    <!-- Name and description pulled from message bundles -->
+    <Name>OSCAR Filer</Name>
+    <Description>An application to file messages from GMail directly to OSCAR</Description>
+
+    <Extension id="OscarExtractor" type="contextExtractor">
+        <Name>OSCAR Extractor</Name>
+        <Url>1022840257384:OscarFromExtractor</Url>
+        <Triggers ref="OscarGadget"/>
+        <Scope ref="emailFrom"/>
+        <Scope ref="messageId"/>
+        <Container name="mail"/>
+    </Extension>
+
+    <!--<Extension id="FromExtractor" type="contextExtractor">-->
+        <!--<Name>From Extractor</Name>-->
+        <!--<Url>google.com:SenderEmailExtractor</Url>-->
+        <!--<Param name="sender_email" value="alan.hickey@ahkgroup.com"/>-->
+        <!--<Triggers ref="OscarGadget"/>-->
+        <!--<Scope ref="emailFrom"/>-->
+        <!--<Container name="mail"/>-->
+    <!--</Extension>-->
+
+    <!-- GADGET -->
+    <Extension id="OscarGadget" type="gadget">
+        <Name>OSCAR Gmail contextual gadget</Name>
+        <Url>http://oscar-contextual-gadget.googlecode.com/svn/trunk/oscar-gadget.xml</Url>
+        <Container name="mail"/>
+        <!-- Uncomment this to enable Caja. -->
+        <!-- <Param name="caja" value="enabled"/> -->
+    </Extension>
+
+    <Scope id="emailFrom">
+        <Url>tag:google.com,2010:auth/contextual/extractor/FROM_ADDRESS</Url>
+        <Reason>This application searches the from address of each email for ecstringer83@gmail.com"</Reason>
+    </Scope>
+
+    <Scope id="messageId">
+        <Url>tag:google.com,2010:auth/contextual/extractor/MESSAGE_ID</Url>
+        <Reason>This application searches the messageid of each email"</Reason>
+    </Scope>
+
+</ApplicationManifest>
